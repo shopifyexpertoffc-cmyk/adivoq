@@ -14,24 +14,21 @@ class RouteServiceProvider extends ServiceProvider
      * The path to your application's "home" route.
      */
     public const HOME = '/dashboard';
-        public const ADMIN_HOME = '/admin/dashboard';
+    public const ADMIN_HOME = '/admin/dashboard';
 
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
      */
-   public function boot()
-{
-    $this->routes(function () {
-        Route::middleware('web')
-            ->group(base_path('routes/web.php'));
+    public function boot()
+    {
+        $this->routes(function () {
+            Route::middleware('web')
+                ->group(base_path('routes/web.php'));
 
-        Route::middleware('api')
-            ->prefix('api')
-            ->group(base_path('routes/api.php'));
-
-        Route::middleware('web')
-            ->group(base_path('routes/tenant.php'));  // <--- this line loads tenant routes
-    });
-}
+            Route::middleware('api')
+                ->prefix('api')
+                ->group(base_path('routes/api.php'));
+        });
+    }
 }

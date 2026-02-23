@@ -1,21 +1,16 @@
 <?php
 
-use App\Http\Controllers\Tenant\AuthController as TenantAuthController;
-use App\Http\Controllers\Tenant\DashboardController;
+use App\Http\Controllers\Central\WorkspaceController;
+use Illuminate\Support\Facades\Route;
 
-// Landing page
+// Landing page on the central/main domain
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-// Tenant login routes
-Route::middleware('guest:web')->group(function () {
-    Route::get('/login', [TenantAuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [TenantAuthController::class, 'login'])->name('login.submit');
-});
-
-Route::middleware('auth:web')->group(function () {
-    Route::post('/logout', [TenantAuthController::class, 'logout'])->name('logout');
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    // Other tenant routes here...
+// Workspace finder on the central/main domain
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [WorkspaceController::class, 'showForm'])->name('login');
+    Route::get('/workspace', [WorkspaceController::class, 'showForm'])->name('central.workspace');
+    Route::post('/workspace', [WorkspaceController::class, 'redirect'])->name('central.tenant.redirect');
 });

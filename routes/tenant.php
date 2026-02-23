@@ -33,6 +33,9 @@ Route::middleware([
 
     // Guest routes (tenant login, password reset)
     Route::middleware('guest')->group(function () {
+        Route::get('/setup', [AuthController::class, 'showSetupForm'])->name('tenant.setup');
+        Route::post('/setup', [AuthController::class, 'completeSetup'])->name('tenant.setup.submit');
+
         Route::get('/login', [AuthController::class, 'showLoginForm'])->name('tenant.login');
         Route::post('/login', [AuthController::class, 'login'])->name('tenant.login.submit');
         Route::get('/forgot-password', [AuthController::class, 'showForgotForm'])->name('tenant.password.request');

@@ -25,7 +25,13 @@ public function redirect(Request $request)
         return back()->withInput()->withErrors(['workspace' => 'Workspace not found.']);
     }
 
-    // Redirect using route name tenant.login
-    return redirect()->route('tenant.login', ['tenant' => $tenantId]);
+    $tenant = Tenant::find($tenantId);
+    $domain = $tenant?->domains()->value('domain');
+
+    if (! $domain) {
+        return back()->withInput()->withErrors(['workspace' => 'Workspace domain is not configured.']);
+    }
+
+    return redirect()->away('https://' . $domain . '/login');
 }
 }
