@@ -14,3 +14,6 @@ Route::middleware('guest')->group(function () {
     Route::get('/workspace', [WorkspaceController::class, 'showForm'])->name('central.workspace');
     Route::post('/workspace', [WorkspaceController::class, 'redirect'])->name('central.tenant.redirect');
 });
+
+// Central admin routes
+require __DIR__ . '/admin.php';

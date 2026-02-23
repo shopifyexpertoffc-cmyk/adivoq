@@ -167,9 +167,11 @@
                         <input type="checkbox" name="remember" id="remember">
                         <label for="remember" class="text-sm text-gray-400">Remember me</label>
                     </div>
-                    <a href="{{ route('admin.password.request') }}" class="forgot-link">
-                        Forgot password?
-                    </a>
+                    @if (Route::has('admin.password.request'))
+                        <a href="{{ route('admin.password.request') }}" class="forgot-link">
+                            Forgot password?
+                        </a>
+                    @endif
                 </div>
                 
                 <button type="submit" class="btn btn-primary btn-block">
