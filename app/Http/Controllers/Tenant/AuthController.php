@@ -19,7 +19,7 @@ class AuthController extends Controller
     {
         // Check if setup is required
         if (User::count() === 0) {
-            return redirect()->route('setup');
+            return redirect()->route('tenant.setup');
         }
         
         return view('tenant.auth.login');
@@ -47,7 +47,7 @@ class AuthController extends Controller
                 ]);
             }
 
-            return redirect()->intended(route('dashboard'));
+            return redirect()->intended(route('tenant.dashboard'));
         }
 
         return back()->withErrors([
@@ -65,7 +65,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login');
+        return redirect()->route('tenant.login');
     }
 
     /**
@@ -75,7 +75,7 @@ class AuthController extends Controller
     {
         // If users exist, redirect to login
         if (User::count() > 0) {
-            return redirect()->route('login');
+            return redirect()->route('tenant.login');
         }
         
         $tenant = tenant();
@@ -90,7 +90,7 @@ class AuthController extends Controller
     {
         // Prevent if already set up
         if (User::count() > 0) {
-            return redirect()->route('login');
+            return redirect()->route('tenant.login');
         }
         
         $validated = $request->validate([
@@ -109,7 +109,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('dashboard')->with('success', 'Welcome to CreatorPay! Your account is ready.');
+        return redirect()->route('tenant.dashboard')->with('success', 'Welcome to CreatorPay! Your account is ready.');
     }
 
     /**
@@ -167,7 +167,7 @@ class AuthController extends Controller
         );
 
         return $status === Password::PASSWORD_RESET
-            ? redirect()->route('login')->with('status', __($status))
+            ? redirect()->route('tenant.login')->with('status', __($status))
             : back()->withErrors(['email' => [__($status)]]);
     }
 }

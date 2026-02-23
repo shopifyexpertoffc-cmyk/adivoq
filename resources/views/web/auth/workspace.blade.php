@@ -10,7 +10,7 @@
                 Enter your <span class="gradient-text">workspace</span>
             </h1>
             <p class="text-gray-400 text-sm mb-5">
-                Example: if your workspace is "sani", we’ll take you to /tenant/sani/login
+                Example: if your workspace is "sani", we’ll redirect you to sani.adivoq.com/login
             </p>
 
             @if($errors->any())

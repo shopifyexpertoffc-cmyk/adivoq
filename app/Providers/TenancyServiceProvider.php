@@ -23,6 +23,7 @@ class TenancyServiceProvider extends ServiceProvider
             Events\CreatingTenant::class => [],
             Events\TenantCreated::class => [
                 Listeners\CreateDatabase::class,
+                Listeners\MigrateDatabase::class,
             ],
             Events\SavingTenant::class => [],
             Events\TenantSaved::class => [],
